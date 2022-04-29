@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admitted</title>
+    <link rel="stylesheet" href="commonStyles.css" />
+  </head>
+  <style>
+    #delete{
+      color: red;
+      cursor: pointer;
+    }
+  </style>
+  <body>
+    <div id="links">
+      <div><a href="index.html">Home</a></div>
+      <div><a href="applied.html">Applied Jobs</a></div>
+      <div><a href="bookmark.html">Bookmarks</a></div>
+    </div>
+    <main>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Job Applied</th>
+            <th>Salary</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody id="body"></tbody>
+      </table>
+    </main>
+  </body>
+  
+</html>
+<script>
+  //you need to code here
+  var bookmarkArr=JSON.parse(localStorage.getItem("bookmarks"))||[];
+  //console.log(jobArr)
+  displayData(bookmarkArr);
+  function displayData(data){
+    data.forEach(function(ele,index){
+      var tr=document.createElement("tr");
+
+  var td1=document.createElement("td");
+  td1.innerText=ele.personName;
+
+  var td2=document.createElement("td");
+  td2.innerText=ele.personEmail;
+
+  var td3=document.createElement("td");
+  td3.innerText=ele.personRoll;
+
+  var td4=document.createElement("td");
+  td4.innerText=ele.personSalary;
+
+  var td5=document.createElement("td");
+  td5.innerText="Delete";
+  // td5.style.color="red"
+  // td5.style.cursor="pointer"
+  td5.setAttribute("id","delete")
+  td5.addEventListener("click",function(){
+    deletefun(ele,index);
+  })
+  tr.append(td1,td2,td3,td4,td5);
+  document.querySelector("#body").append(tr);
+
+    });
+  }
+  function deletefun(ele,index){
+    //event.target.parentNode.remove();
+    bookmarkArr.splice(index,1)
+    localStorage.setItem("bookmarks",JSON.stringify(bookmarkArr));
+    window.localStorage.reload();
+  }
+  
+
+</script>
